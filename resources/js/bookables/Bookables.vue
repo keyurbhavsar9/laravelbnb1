@@ -2,17 +2,13 @@
     <div>
         <div v-if="loading">Data is loading</div>
         <div v-else>
-            <div class="row" v-for="row in rows" :key="'row' + row">
+            <div class="row p-3" v-for="row in rows" :key="'row' + row">
                 <div
-                    class="col"
+                    class="col d-flex align-items-stretch"
                     v-for="(bookable, column) in bookablesInRow(row)"
                     :key="'row' + row + column"
                 >
-                    <listItem
-                        :title="bookable.title"
-                        :description="bookable.description"
-                        :price="1000"
-                    ></listItem>
+                    <listItem v-bind="bookable"></listItem>
                 </div>
 
                 <div
@@ -67,6 +63,7 @@ export default {
         const request = axios.get("/api/bookables").then(response => {
             this.loading = false;
             this.bookables = response.data;
+            this.bookables.push({ title: "x", description: "x" });
             //console.log("Bookables" + this.bookables);
         });
 
