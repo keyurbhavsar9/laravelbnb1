@@ -1920,7 +1920,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
     title: String,
-    content: String,
+    description: String,
     price: Number
   }
 });
@@ -1989,33 +1989,25 @@ __webpack_require__.r(__webpack_exports__);
     var _this = this;
 
     this.loading = true;
-    console.log("Created");
-    console.log(this.bookabale1);
-    setTimeout(function () {
-      _this.bookables = [{
-        title: "Expesive Villa 1",
-        content: "HOUSE 1"
-      }, {
-        title: "Expesive Villa 2",
-        content: "HOUSE 2"
-      }, {
-        title: "Expesive Villa 3",
-        content: "HOUSE 2"
-      }, {
-        title: "Expesive Villa 4",
-        content: "HOUSE 2"
-      }, {
-        title: "Expesive Villa 5",
-        content: "HOUSE 2"
-      }, {
-        title: "Expesive Villa 6",
-        content: "HOUSE 2"
-      }, {
-        title: "Expesive Villa 7",
-        content: "HOUSE 2"
-      }];
+    var p = new Promise(function (resolve, reject) {
+      console.log(resolve);
+      console.log(reject);
+      setTimeout(function () {
+        return resolve("Hello 1");
+      }, 3000);
+    }).then(function (result) {
+      return "Hello 2" + result;
+    }).then(function (result) {
+      return console.log(result);
+    })["catch"](function (result) {
+      return console.log("error ".concat(result));
+    });
+    console.log(p);
+    var request = axios.get("/api/bookables").then(function (response) {
       _this.loading = false;
-    }, 2000);
+      _this.bookables = response.data; //console.log("Bookables" + this.bookables);
+    });
+    console.log(request);
   },
   data: function data() {
     return {
@@ -37688,7 +37680,7 @@ var render = function() {
     _c("div", { staticClass: "card-body" }, [
       _c("h5", { staticClass: "card-title" }, [_vm._v(_vm._s(_vm.title))]),
       _vm._v(" "),
-      _c("p", { staticClass: "card-body" }, [_vm._v(_vm._s(_vm.content))])
+      _c("p", { staticClass: "card-body" }, [_vm._v(_vm._s(_vm.description))])
     ])
   ])
 }
@@ -37732,7 +37724,7 @@ var render = function() {
                       _c("listItem", {
                         attrs: {
                           title: bookable.title,
-                          content: bookable.content,
+                          description: bookable.description,
                           price: 1000
                         }
                       })

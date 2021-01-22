@@ -10,7 +10,7 @@
                 >
                     <listItem
                         :title="bookable.title"
-                        :content="bookable.content"
+                        :description="bookable.description"
                         :price="1000"
                     ></listItem>
                 </div>
@@ -55,42 +55,22 @@ export default {
     //use of created method is preffered when fetching data from server
     created() {
         this.loading = true;
-        console.log("Created");
-        console.log(this.bookabale1);
-
-        setTimeout(() => {
-            this.bookables = [
-                {
-                    title: "Expesive Villa 1",
-                    content: "HOUSE 1"
-                },
-                {
-                    title: "Expesive Villa 2",
-                    content: "HOUSE 2"
-                },
-                {
-                    title: "Expesive Villa 3",
-                    content: "HOUSE 2"
-                },
-                {
-                    title: "Expesive Villa 4",
-                    content: "HOUSE 2"
-                },
-                {
-                    title: "Expesive Villa 5",
-                    content: "HOUSE 2"
-                },
-                {
-                    title: "Expesive Villa 6",
-                    content: "HOUSE 2"
-                },
-                {
-                    title: "Expesive Villa 7",
-                    content: "HOUSE 2"
-                }
-            ];
+        const p = new Promise((resolve, reject) => {
+            console.log(resolve);
+            console.log(reject);
+            setTimeout(() => resolve("Hello 1"), 3000);
+        })
+            .then(result => "Hello 2" + result)
+            .then(result => console.log(result))
+            .catch(result => console.log(`error ${result}`));
+        console.log(p);
+        const request = axios.get("/api/bookables").then(response => {
             this.loading = false;
-        }, 2000);
+            this.bookables = response.data;
+            //console.log("Bookables" + this.bookables);
+        });
+
+        console.log(request);
     },
     data() {
         return {
