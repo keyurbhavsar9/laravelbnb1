@@ -51,18 +51,10 @@ export default {
     //use of created method is preffered when fetching data from server
     created() {
         this.loading = true;
-        const p = new Promise((resolve, reject) => {
-            console.log(resolve);
-            console.log(reject);
-            setTimeout(() => resolve("Hello 1"), 3000);
-        })
-            .then(result => "Hello 2" + result)
-            .then(result => console.log(result))
-            .catch(result => console.log(`error ${result}`));
-        console.log(p);
+
         const request = axios.get("/api/bookables").then(response => {
             this.loading = false;
-            this.bookables = response.data;
+            this.bookables = response.data.data;
             this.bookables.push({ title: "x", description: "x" });
             //console.log("Bookables" + this.bookables);
         });
