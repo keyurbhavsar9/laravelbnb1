@@ -9,9 +9,11 @@ require('./bootstrap');
 import router from "./routes";
 import VueRouter from "vue-router";
 import Index from './index.vue'
+import moment from "moment";
+
 window.Vue = require('vue');
 
-
+Vue.filter("fromNow",value=>moment(value).fromNow());
 
 
 // Vue.component('example-component', require('./components/ExampleComponent.vue').default);
