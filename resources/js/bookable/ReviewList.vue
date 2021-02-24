@@ -18,6 +18,7 @@
 
                     <div class="col-md-6 d-flex justify-content-end">
                         {{ review.rating }}
+                        <starRating :rating="review.rating" class="fa-lg" />
                     </div>
                 </div>
 
